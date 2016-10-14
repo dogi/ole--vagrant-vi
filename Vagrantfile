@@ -98,7 +98,7 @@ Vagrant.configure(2) do |config|
     #cd BeLL-Apps
     cd BeLL-Apps-0.12.52
     #for vi.ole.org:5999 only
-    sed -i 's#earthbell.ole.org:5989#vi.ole.org:5999#' init_docs/ConfigurationsDoc-Community.txt
+    sed -i 's#earthbell.ole.org:5989#old.vi.ole.org:5985#' init_docs/ConfigurationsDoc-Community.txt
     chmod +x node_modules/.bin/couchapp
     ## check if docker is running
     while ! curl -X GET http://127.0.0.1:5984/_all_dbs ; do
