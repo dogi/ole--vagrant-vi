@@ -104,12 +104,16 @@ Write-Host All necessary programs have been installed. -ForegroundColor Magenta
 Write-Host Please, wait while the BeLL community is being installed... -ForegroundColor Magenta
 
 # Git clone OLE Vagrant Community
-Write-Host "Please, enter your GitHub username, or press Enter to continue:" -ForegroundColor Magenta
-$gituser = Read-Host
-if ($gituser -eq "") {$gituser = "dogi"}
+# Write-Host "Please, enter your GitHub username, or press Enter to continue:" -ForegroundColor Magenta
+# $gituser = Read-Host
+# if ($gituser -eq "") {$gituser = "dogi"}
+$gituser = "dogi" # comment out this line when uncommenting the three lines above
 cd $HOME
 & 'C:\Program Files\Git\bin\git.exe' clone https://github.com/$gituser/ole--vagrant-vi.git
 cd .\ole--vagrant-vi
+
+# Delete unneeded files
+Remove-Item C:\$HOME\ole--vagrant-vi\windows\* -include .bat
 
 # Open ports on network
 New-NetFirewallRule -DisplayName "Allow Outbound Port 5984 CouchDB/HTTP" -Direction Outbound –LocalPort 5984 -Protocol TCP -Action Allow

@@ -28,7 +28,7 @@ if "%errorlevel%" equ "5" (
 )
 
 set git=dogi
-set /p git="Enter your git username: "
+REM set /p git="Enter your git username: "
 
 cd /D "C:\Users\%USERNAME%"
 "\Program Files\Git\cmd\git.exe" clone https://github.com/%git%/ole--vagrant-vi.git
