@@ -111,6 +111,9 @@ cd $HOME
 & 'C:\Program Files\Git\bin\git.exe' clone https://github.com/$gituser/ole--vagrant-vi.git
 cd .\ole--vagrant-vi
 
+# Delete unneeded files
+Remove-Item C:\$HOME\ole--vagrant-vi\windows\* -include .bat
+
 # Open ports on network
 New-NetFirewallRule -DisplayName "Allow Outbound Port 5984 CouchDB/HTTP" -Direction Outbound –LocalPort 5984 -Protocol TCP -Action Allow
 New-NetFirewallRule -DisplayName "Allow Inbound Port 5984 CouchDB/HTTP" -Direction Inbound –LocalPort 5984 -Protocol TCP -Action Allow
