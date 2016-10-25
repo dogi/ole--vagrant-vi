@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.hostname = "vi"
 
-  config.vm.define "vi" do |community|
+  config.vm.define "vi" do |vi|
   end
 
   config.vm.provider "virtualbox" do |vb|
