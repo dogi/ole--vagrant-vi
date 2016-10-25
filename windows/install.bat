@@ -33,6 +33,8 @@ set /p git="Enter your git username: "
 cd /D "C:\Users\%USERNAME%"
 "\Program Files\Git\cmd\git.exe" clone https://github.com/%git%/ole--vagrant-vi.git
 cd ole--vagrant-vi/windows
+
+del "C:\Users\%USERNAME%\ole--vagrant-vi\windows\*.ps1"
  
 start start_vagrant_on_boot.bat 
 
