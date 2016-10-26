@@ -46,7 +46,7 @@ if exist "%PROGRAMFILES(x86)%\Mozilla Firefox\" (
 	echo oLink.TargetPath = "%PROGRAMFILES%\Mozilla Firefox\firefox.exe" >> %SCRIPT%
 )
 echo oLink.IconLocation = "C:\Users\%USERNAME%\ole--vagrant-vi\windows\bell_logo.ico" >> %SCRIPT%
-echo oLink.Arguments = "http://127.0.0.1:5984/apps/_design/bell/MyApp/index.html" >> %SCRIPT%
+echo oLink.Arguments = "http://127.0.0.1:5985/apps/_design/bell/MyApp/index.html" >> %SCRIPT%
 echo oLink.Description = "My BeLL App"
 echo oLink.Save >> %SCRIPT%
 cscript %SCRIPT%
