@@ -92,15 +92,13 @@ Get-ChildItem -Path "$HOME\ole--vagrant-vi" -Recurse | Remove-Item -Force -Recur
 Remove-Item "$HOME\ole--vagrant-vi" -Force -Recurse
 
 # Close ports on network
-Write-Host 'Are you sure you want your firewall to block ports 5985 and 6985? (Y)es, (N)o' -ForegroundColor Magenta
+Write-Host 'Are you sure you want your firewall to block port 5985? (Y)es, (N)o' -ForegroundColor Magenta
 $fw = Read-Host
 
 if ($fw.ToUpper() -eq 'Y' -or $fw -eq "") {
     New-NetFirewallRule -DisplayName "Block Outbound Port 5985 CouchDB/HTTP" -Direction Outbound -LocalPort 5984 -Protocol TCP -Action Block
     New-NetFirewallRule -DisplayName "Block Inbound Port 5985 CouchDB/HTTP" -Direction Inbound -LocalPort 5984 -Protocol TCP -Action Block
-    New-NetFirewallRule -DisplayName "Block Outbound Port 6985 CouchDB/HTTPS" -Direction Outbound -LocalPort 6984 -Protocol TCP -Action Block
-    New-NetFirewallRule -DisplayName "Block Inbound Port 6985 CouchDB/HTTPS" -Direction Inbound -LocalPort 6984 -Protocol TCP -Action Block
-    Write-Host Ports `5985 and `6985 have been blocked. -ForegroundColor Magenta
+    Write-Host Port `5985 have been blocked. -ForegroundColor Magenta
 }
 
 # Remove vagrant job from Startup
