@@ -62,14 +62,6 @@ echo Creating firewall rule CouchDB/HTTP(BeLL)+1
 netsh advfirewall firewall add rule name="CouchDB/HTTP(BeLL)+1" dir=out action=allow protocol=TCP localport=5985
 netsh advfirewall firewall add rule name="CouchDB/HTTP(BeLL)+1" dir=in action=allow protocol=TCP localport=5985
 
-netsh advfirewall firewall show rule name="CouchDB/HTTPS(BeLL)+1" >nul
-if not ERRORLEVEL 1 (
-	echo Ports are already open.
-	netsh advfirewall firewall delete rule name="CouchDB/HTTPS(BeLL)+1"
-) 
-echo Creating firewall rule CouchDB/HTTPS(BeLL)+1
-netsh advfirewall firewall add rule name="CouchDB/HTTPS(BeLL)+1" dir=out action=allow protocol=TCP localport=6985
-netsh advfirewall firewall add rule name="CouchDB/HTTPS(BeLL)+1" dir=in action=allow protocol=TCP localport=6985
 echo Installation completed. Vagrant is starting...
 pause
 exit
