@@ -118,8 +118,6 @@ Remove-Item C:\$HOME\ole--vagrant-vi\windows\* -include .bat
 # Open ports on network
 New-NetFirewallRule -DisplayName "Allow Outbound Port 5985 CouchDB/HTTP" -Direction Outbound –LocalPort 5984 -Protocol TCP -Action Allow
 New-NetFirewallRule -DisplayName "Allow Inbound Port 5985 CouchDB/HTTP" -Direction Inbound –LocalPort 5984 -Protocol TCP -Action Allow
-New-NetFirewallRule -DisplayName "Allow Outbound Port 6985 CouchDB/HTTPS" -Direction Outbound –LocalPort 6984 -Protocol TCP -Action Allow
-New-NetFirewallRule -DisplayName "Allow Inbound Port 6985 CouchDB/HTTPS" -Direction Inbound –LocalPort 6984 -Protocol TCP -Action Allow
 
 # Start Vagrant at Startup
 $trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
