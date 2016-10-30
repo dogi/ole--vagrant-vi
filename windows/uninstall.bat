@@ -30,12 +30,6 @@ if not ERRORLEVEL 1 (
 	netsh advfirewall firewall delete rule name="CouchDB/HTTP(BeLL)+1" 
 )
 
-netsh advfirewall firewall show rule name="CouchDB/HTTPS(BeLL)+1" >nul
-if not ERRORLEVEL 1 (
-	echo Blocking Port 6985...
-	netsh advfirewall firewall delete rule name="CouchDB/HTTPS(BeLL)+1"
-) 
-
 IF EXIST "C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\start_vagrant_on_boot.bat" (
 	del "C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\start_vagrant_on_boot.bat"
 )
