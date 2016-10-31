@@ -96,8 +96,8 @@ Write-Host 'Are you sure you want your firewall to block port 5985? (Y)es, (N)o'
 $fw = Read-Host
 
 if ($fw.ToUpper() -eq 'Y' -or $fw -eq "") {
-    New-NetFirewallRule -DisplayName "Block Outbound Port 5985 CouchDB/HTTP" -Direction Outbound -LocalPort 5984 -Protocol TCP -Action Block
-    New-NetFirewallRule -DisplayName "Block Inbound Port 5985 CouchDB/HTTP" -Direction Inbound -LocalPort 5984 -Protocol TCP -Action Block
+    New-NetFirewallRule -DisplayName "Block Outbound Port 5985 CouchDB/HTTP" -Direction Outbound -LocalPort 5985 -Protocol TCP -Action Block
+    New-NetFirewallRule -DisplayName "Block Inbound Port 5985 CouchDB/HTTP" -Direction Inbound -LocalPort 5985 -Protocol TCP -Action Block
     Write-Host Port `5985 have been blocked. -ForegroundColor Magenta
 }
 
