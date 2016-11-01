@@ -1,4 +1,9 @@
 @echo off
+
+REM Set variables
+set repo=ole--vagrant-vi
+set port=5985
+
 color 0b
 echo This script will uninstall BeLL-Apps from your computer 
 REM Get Admin For Batch File
@@ -26,7 +31,7 @@ if "%errorlevel%" equ "5"  (
 
 netsh advfirewall firewall show rule name="CouchDB/HTTP(BeLL)+1" >nul
 if not ERRORLEVEL 1 (
-	echo Blocking Port 5985...
+	echo Blocking Port %port%...
 	netsh advfirewall firewall delete rule name="CouchDB/HTTP(BeLL)+1" 
 )
 
@@ -36,7 +41,7 @@ IF EXIST "C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\Start Menu\Progr
 
 echo Uninstallation completed.
 pause
-echo Deleting ole--vagrant-vi folder..
-RD /S /Q "C:\Users\%USERNAME%\ole--vagrant-vi"
+echo Deleting %repo% folder..
+RD /S /Q "C:\Users\%USERNAME%\%repo%"
 exit
 
