@@ -116,8 +116,8 @@ cd .\$repo
 Remove-Item $HOME\$repo\windows\*.bat
 
 # Open ports on network
-New-NetFirewallRule -DisplayName "Allow Outbound Port "+$port+" CouchDB/HTTP" -Direction Outbound –LocalPort $port -Protocol TCP -Action Allow
-New-NetFirewallRule -DisplayName "Allow Inbound Port "+$port+" CouchDB/HTTP" -Direction Inbound –LocalPort $port -Protocol TCP -Action Allow
+New-NetFirewallRule -DisplayName "Allow Outbound Port $port CouchDB/HTTP" -Direction Outbound –LocalPort $port -Protocol TCP -Action Allow
+New-NetFirewallRule -DisplayName "Allow Inbound Port $port CouchDB/HTTP" -Direction Inbound –LocalPort $port -Protocol TCP -Action Allow
 
 # Start Vagrant at Startup
 $trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
