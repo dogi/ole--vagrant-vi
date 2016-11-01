@@ -141,4 +141,4 @@ Write-Host Now, we will install the virtual machine, and then you`'ll be all set
 
 # Start the VM
 #& ((Split-Path $MyInvocation.MyCommand.Path) + "\vagrantup.ps1")
-& C:\$HOME\$repo\windows\vagrantup.ps1
+& ("C:\$HOME\$repo\windows\vagrantup.ps1")
