@@ -1,3 +1,7 @@
+# Set Variables
+$gituser = dogi
+$repo = ole--vagrant-vi
+$port = 5985
 
 Write-Host This script will install your BeLL App. -ForegroundColor Magenta
 
@@ -104,24 +108,20 @@ Write-Host All necessary programs have been installed. -ForegroundColor Magenta
 Write-Host Please, wait while the BeLL community is being installed... -ForegroundColor Magenta
 
 # Git clone OLE Vagrant Community
-# Write-Host "Please, enter your GitHub username, or press Enter to continue:" -ForegroundColor Magenta
-# $gituser = Read-Host
-# if ($gituser -eq "") {$gituser = "dogi"}
-$gituser = "dogi" # comment out this line when uncommenting the three lines above
 cd $HOME
-& 'C:\Program Files\Git\bin\git.exe' clone https://github.com/$gituser/ole--vagrant-vi.git
-cd .\ole--vagrant-vi
+& 'C:\Program Files\Git\bin\git.exe' clone https://github.com/$gituser/$repo.git
+cd .\$repo
 
 # Delete unneeded files
-Remove-Item C:\$HOME\ole--vagrant-vi\windows\* -include .bat
+Remove-Item C:\$HOME\$repo\windows\* -include .bat
 
 # Open ports on network
-New-NetFirewallRule -DisplayName "Allow Outbound Port 5985 CouchDB/HTTP" -Direction Outbound –LocalPort 5985 -Protocol TCP -Action Allow
-New-NetFirewallRule -DisplayName "Allow Inbound Port 5985 CouchDB/HTTP" -Direction Inbound –LocalPort 5985 -Protocol TCP -Action Allow
+New-NetFirewallRule -DisplayName "Allow Outbound Port $port CouchDB/HTTP" -Direction Outbound –LocalPort $port -Protocol TCP -Action Allow
+New-NetFirewallRule -DisplayName "Allow Inbound Port $port CouchDB/HTTP" -Direction Inbound –LocalPort $port -Protocol TCP -Action Allow
 
 # Start Vagrant at Startup
 $trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
-Register-ScheduledJob -Trigger $trigger -FilePath $HOME\ole--vagrant-vi\windows\vagrantup.ps1 -Name VagrantUp
+Register-ScheduledJob -Trigger $trigger -FilePath $HOME\$repo\windows\vagrantup.ps1 -Name VagrantUp
 
 # Create a desktop icon
 $WScriptShell = New-Object -ComObject WScript.Shell
@@ -131,8 +131,8 @@ if (Test-Path 'C:\Program Files (x86)\Mozilla Firefox') {
 } else {
     $Shortcut.TargetPath = "C:\Program Files\Mozilla Firefox\firefox.exe"
 }
-$Shortcut.IconLocation = "$HOME\ole--vagrant-vi\windows\bell_logo.ico, 0"
-$Shortcut.Arguments = "http://127.0.0.1:5985/apps/_design/bell/MyApp/index.html"
+$Shortcut.IconLocation = "$HOME\$repo\windows\bell_logo.ico, 0"
+$Shortcut.Arguments = "http://127.0.0.1:$port/apps/_design/bell/MyApp/index.html"
 $Shortcut.Description = "My BeLL App"
 $Shortcut.Save()
 

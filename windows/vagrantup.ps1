@@ -1,5 +1,9 @@
-﻿# Start the VM
+﻿# Set variable
+$repo = ole--vagrant-vi
+
+# Start the VM
 Write-Host Starting BeLL App... -ForegroundColor Magenta
+cd $HOME\$repo
 C:\HashiCorp\Vagrant\bin\vagrant.exe up
 $str = C:\HashiCorp\Vagrant\bin\vagrant.exe global-status
 $strArr = @($str.Split(" "))
