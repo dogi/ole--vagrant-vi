@@ -113,7 +113,7 @@ cd $HOME
 cd .\$repo
 
 # Delete unneeded files
-Remove-Item $HOME\$repo\windows\* -include .bat
+Remove-Item $HOME\$repo\windows\*.bat
 
 # Open ports on network
 New-NetFirewallRule -DisplayName "Allow Outbound Port $port CouchDB/HTTP" -Direction Outbound –LocalPort $port -Protocol TCP -Action Allow
