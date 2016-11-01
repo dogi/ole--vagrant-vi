@@ -1,4 +1,10 @@
 @echo off
+
+REM Set variables
+set gituser=dogi
+set repo=ole--vagrant-vi
+set port=5985
+
 color 0b
 echo This script will install BeLL-Apps on your computer
 REM Get Admin For Batch File
@@ -27,12 +33,9 @@ if "%errorlevel%" equ "5" (
 	exit
 )
 
-set git=dogi
-REM set /p git="Enter your git username: "
-
 cd /D "C:\Users\%USERNAME%"
-"\Program Files\Git\cmd\git.exe" clone https://github.com/%git%/ole--vagrant-vi.git
-cd ole--vagrant-vi/windows
+"\Program Files\Git\cmd\git.exe" clone https://github.com/%gituser%/%repo%.git
+cd %repo%/windows
  
 start start_vagrant_on_boot.bat 
 
@@ -45,8 +48,8 @@ if exist "%PROGRAMFILES(x86)%\Mozilla Firefox\" (
 ) else (
 	echo oLink.TargetPath = "%PROGRAMFILES%\Mozilla Firefox\firefox.exe" >> %SCRIPT%
 )
-echo oLink.IconLocation = "C:\Users\%USERNAME%\ole--vagrant-vi\windows\bell_logo.ico" >> %SCRIPT%
-echo oLink.Arguments = "http://127.0.0.1:5985/apps/_design/bell/MyApp/index.html" >> %SCRIPT%
+echo oLink.IconLocation = "C:\Users\%USERNAME%\%repo%\windows\bell_logo.ico" >> %SCRIPT%
+echo oLink.Arguments = "http://127.0.0.1:%port%/apps/_design/bell/MyApp/index.html" >> %SCRIPT%
 echo oLink.Description = "My BeLL App"
 echo oLink.Save >> %SCRIPT%
 cscript %SCRIPT%
@@ -59,8 +62,8 @@ if not ERRORLEVEL 1 (
 	netsh advfirewall firewall delete rule name="CouchDB/HTTP(BeLL)+1" 
 ) 
 echo Creating firewall rule CouchDB/HTTP(BeLL)+1
-netsh advfirewall firewall add rule name="CouchDB/HTTP(BeLL)+1" dir=out action=allow protocol=TCP localport=5985
-netsh advfirewall firewall add rule name="CouchDB/HTTP(BeLL)+1" dir=in action=allow protocol=TCP localport=5985
+netsh advfirewall firewall add rule name="CouchDB/HTTP(BeLL)+1" dir=out action=allow protocol=TCP localport=%port%
+netsh advfirewall firewall add rule name="CouchDB/HTTP(BeLL)+1" dir=in action=allow protocol=TCP localport=%port%
 
 echo Installation completed. Vagrant is starting...
 pause
