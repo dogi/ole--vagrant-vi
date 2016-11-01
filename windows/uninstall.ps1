@@ -1,5 +1,5 @@
 # Set variable
-$repo = ole--vagrant-vi
+$repo = "ole--vagrant-vi"
 $port = 5985
 
 Write-Host This script will uninstall BeLL App from your computer. -ForegroundColor Magenta
