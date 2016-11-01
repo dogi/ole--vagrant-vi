@@ -116,10 +116,8 @@ cd .\ole--vagrant-vi
 Remove-Item C:\$HOME\ole--vagrant-vi\windows\* -include .bat
 
 # Open ports on network
-New-NetFirewallRule -DisplayName "Allow Outbound Port 5984 CouchDB/HTTP" -Direction Outbound –LocalPort 5984 -Protocol TCP -Action Allow
-New-NetFirewallRule -DisplayName "Allow Inbound Port 5984 CouchDB/HTTP" -Direction Inbound –LocalPort 5984 -Protocol TCP -Action Allow
-New-NetFirewallRule -DisplayName "Allow Outbound Port 6984 CouchDB/HTTPS" -Direction Outbound –LocalPort 6984 -Protocol TCP -Action Allow
-New-NetFirewallRule -DisplayName "Allow Inbound Port 6984 CouchDB/HTTPS" -Direction Inbound –LocalPort 6984 -Protocol TCP -Action Allow
+New-NetFirewallRule -DisplayName "Allow Outbound Port 5985 CouchDB/HTTP" -Direction Outbound –LocalPort 5985 -Protocol TCP -Action Allow
+New-NetFirewallRule -DisplayName "Allow Inbound Port 5985 CouchDB/HTTP" -Direction Inbound –LocalPort 5985 -Protocol TCP -Action Allow
 
 # Start Vagrant at Startup
 $trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
@@ -134,7 +132,7 @@ if (Test-Path 'C:\Program Files (x86)\Mozilla Firefox') {
     $Shortcut.TargetPath = "C:\Program Files\Mozilla Firefox\firefox.exe"
 }
 $Shortcut.IconLocation = "$HOME\ole--vagrant-vi\windows\bell_logo.ico, 0"
-$Shortcut.Arguments = "http://127.0.0.1:5984/apps/_design/bell/MyApp/index.html"
+$Shortcut.Arguments = "http://127.0.0.1:5985/apps/_design/bell/MyApp/index.html"
 $Shortcut.Description = "My BeLL App"
 $Shortcut.Save()
 

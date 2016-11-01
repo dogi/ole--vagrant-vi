@@ -46,30 +46,22 @@ if exist "%PROGRAMFILES(x86)%\Mozilla Firefox\" (
 	echo oLink.TargetPath = "%PROGRAMFILES%\Mozilla Firefox\firefox.exe" >> %SCRIPT%
 )
 echo oLink.IconLocation = "C:\Users\%USERNAME%\ole--vagrant-vi\windows\bell_logo.ico" >> %SCRIPT%
-echo oLink.Arguments = "http://127.0.0.1:5984/apps/_design/bell/MyApp/index.html" >> %SCRIPT%
+echo oLink.Arguments = "http://127.0.0.1:5985/apps/_design/bell/MyApp/index.html" >> %SCRIPT%
 echo oLink.Description = "My BeLL App"
 echo oLink.Save >> %SCRIPT%
 cscript %SCRIPT%
 del %SCRIPT%
 
 REM Open Windows Firewall Ports
-netsh advfirewall firewall show rule name="CouchDB/HTTP(BeLL)" >nul
+netsh advfirewall firewall show rule name="CouchDB/HTTP(BeLL)+1" >nul
 if not ERRORLEVEL 1 (
 	echo Ports are already open.
-	netsh advfirewall firewall delete rule name="CouchDB/HTTP(BeLL)" 
+	netsh advfirewall firewall delete rule name="CouchDB/HTTP(BeLL)+1" 
 ) 
-echo Creating firewall rule CouchDB/HTTP(BeLL)
-netsh advfirewall firewall add rule name="CouchDB/HTTP(BeLL)" dir=out action=allow protocol=TCP localport=5984
-netsh advfirewall firewall add rule name="CouchDB/HTTP(BeLL)" dir=in action=allow protocol=TCP localport=5984
+echo Creating firewall rule CouchDB/HTTP(BeLL)+1
+netsh advfirewall firewall add rule name="CouchDB/HTTP(BeLL)+1" dir=out action=allow protocol=TCP localport=5985
+netsh advfirewall firewall add rule name="CouchDB/HTTP(BeLL)+1" dir=in action=allow protocol=TCP localport=5985
 
-netsh advfirewall firewall show rule name="CouchDB/HTTPS(BeLL)" >nul
-if not ERRORLEVEL 1 (
-	echo Ports are already open.
-	netsh advfirewall firewall delete rule name="CouchDB/HTTPS(BeLL)"
-) 
-echo Creating firewall rule CouchDB/HTTPS(BeLL)
-netsh advfirewall firewall add rule name="CouchDB/HTTPS(BeLL)" dir=out action=allow protocol=TCP localport=6984
-netsh advfirewall firewall add rule name="CouchDB/HTTPS(BeLL)" dir=in action=allow protocol=TCP localport=6984
 echo Installation completed. Vagrant is starting...
 pause
 exit
