@@ -140,5 +140,4 @@ Write-Host The BeLL community has been installed. -ForegroundColor Magenta
 Write-Host Now, we will install the virtual machine, and then you`'ll be all set. -ForegroundColor Magenta
 
 # Start the VM
-#& ((Split-Path $MyInvocation.MyCommand.Path) + "\vagrantup.ps1")
 & ("$HOME\$repo\windows\vagrantup.ps1")
