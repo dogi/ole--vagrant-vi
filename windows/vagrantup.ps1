@@ -1,5 +1,5 @@
 ﻿# Set variable
-$repo = ole--vagrant-vi
+$repo = "ole--vagrant-vi"
 
 # Start the VM
 Write-Host Starting BeLL App... -ForegroundColor Magenta

@@ -1,6 +1,6 @@
 # Set Variables
-$gituser = dogi
-$repo = ole--vagrant-vi
+$gituser = "dogi"
+$repo = "ole--vagrant-vi"
 $port = 5985
 
 Write-Host This script will install your BeLL App. -ForegroundColor Magenta
