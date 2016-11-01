@@ -30,7 +30,7 @@ Write-Host "Would you like to uninstall Firefox? (Y)es, (N)o" -ForegroundColor M
 $ff = Read-Host
 Write-Host "Would you like to uninstall Chocolatey? (Y)es, (N)o" -ForegroundColor Magenta
 $ch = Read-Host
-Write-Host "Would you like to enable Hyper-V? NOTE: If you don't know what Hyper-V is, it is safer to leave it disabled. (Y)es, (N)o" -ForegroundColor Magenta
+Write-Host "Would you like to enable Hyper-V? NOTE: If you don't know what Hyper-V is, it is safer to leave it disabled. (YES), (N)o" -ForegroundColor Magenta
 $hv = Read-Host
 
 # Uninstall Bonjour
@@ -80,7 +80,7 @@ if ($ch.ToUpper() -eq 'Y' -or $ch -eq "") {
 }
 
 # Reactivate Hyper-V, if the user agrees
-if ($hv.ToUpper() -eq 'Y' -or $hv -eq "") {
+if ($hv.ToUpper() -eq 'YES') {
     bcdedit /set hypervisorlaunchtype auto
     Write-Host Hyper-V is now enabled. -ForegroundColor Magenta
 }
