@@ -113,7 +113,7 @@ cd $HOME
 cd .\$repo
 
 # Delete unneeded files
-Remove-Item C:\$HOME\$repo\windows\* -include .bat
+Remove-Item $HOME\$repo\windows\* -include .bat
 
 # Open ports on network
 New-NetFirewallRule -DisplayName "Allow Outbound Port $port CouchDB/HTTP" -Direction Outbound –LocalPort $port -Protocol TCP -Action Allow
@@ -141,4 +141,4 @@ Write-Host Now, we will install the virtual machine, and then you`'ll be all set
 
 # Start the VM
 #& ((Split-Path $MyInvocation.MyCommand.Path) + "\vagrantup.ps1")
-& ("C:\$HOME\$repo\windows\vagrantup.ps1")
+& ("$HOME\$repo\windows\vagrantup.ps1")
