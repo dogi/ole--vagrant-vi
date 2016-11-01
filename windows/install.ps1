@@ -132,7 +132,7 @@ if (Test-Path 'C:\Program Files (x86)\Mozilla Firefox') {
     $Shortcut.TargetPath = "C:\Program Files\Mozilla Firefox\firefox.exe"
 }
 $Shortcut.IconLocation = "$HOME\$repo\windows\bell_logo.ico, 0"
-$Shortcut.Arguments = "http://127.0.0.1:5985/apps/_design/bell/MyApp/index.html"
+$Shortcut.Arguments = "http://127.0.0.1:$port/apps/_design/bell/MyApp/index.html"
 $Shortcut.Description = "My BeLL App"
 $Shortcut.Save()
 
