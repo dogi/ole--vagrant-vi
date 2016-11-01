@@ -113,11 +113,11 @@ cd $HOME
 cd .\$repo
 
 # Delete unneeded files
-Remove-Item C:\$HOME\$repo\windows\* -include .bat
+Remove-Item $HOME\$repo\windows\*.bat
 
 # Open ports on network
-New-NetFirewallRule -DisplayName "Allow Outbound Port $port CouchDB/HTTP" -Direction Outbound –LocalPort $port -Protocol TCP -Action Allow
-New-NetFirewallRule -DisplayName "Allow Inbound Port $port CouchDB/HTTP" -Direction Inbound –LocalPort $port -Protocol TCP -Action Allow
+New-NetFirewallRule -DisplayName "Allow Outbound Port $port CouchDB/HTTP" -Direction Outbound â€“LocalPort $port -Protocol TCP -Action Allow
+New-NetFirewallRule -DisplayName "Allow Inbound Port $port CouchDB/HTTP" -Direction Inbound â€“LocalPort $port -Protocol TCP -Action Allow
 
 # Start Vagrant at Startup
 $trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
@@ -140,4 +140,4 @@ Write-Host The BeLL community has been installed. -ForegroundColor Magenta
 Write-Host Now, we will install the virtual machine, and then you`'ll be all set. -ForegroundColor Magenta
 
 # Start the VM
-& ((Split-Path $MyInvocation.MyCommand.Path) + "\vagrantup.ps1")
+& ("$HOME\$repo\windows\vagrantup.ps1")
