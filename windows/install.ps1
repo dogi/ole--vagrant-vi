@@ -1,3 +1,8 @@
+# TODO: Line 135 (pause not supported in Posh2)
+# TODO: Lines 151-152 (New-NetFirewallRule not supported in Posh2)
+# TODO: Line 155 (New-JobTrigger not supported in Posh2)
+# TODO: Line 156 (Register-ScheduledJob not supported in Posh2)
+
 # Set Variables
 $gituser = "dogi"
 $repo = "ole--vagrant-vi"
@@ -9,12 +14,21 @@ Write-Host Asking for admin privileges. Please`, accept any prompt that may pop 
 
 Sleep 5
 
-# Take admin privileges
-if (! ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
-          [Security.Principal.WindowsBuiltInRole] "Administrator")) {   
-	$arguments = "& '" + $myinvocation.mycommand.definition + "'"
-	Start-Process powershell -Verb runAs -ArgumentList $arguments
-	Break
+# Take admin privileges if not on Win7
+try {
+    if (! ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
+           [Security.Principal.WindowsBuiltInRole] "Administrator")) {   
+	   $arguments = "& '" + $myinvocation.mycommand.definition + "'"
+	   Start-Process powershell -Verb runAs -ArgumentList $arguments
+	   Break
+    }
+} catch {
+    Write-Host "Please, type Ctrl-C, then close this window, 
+                open a command prompt as administrator (Right-Click and choose Run as Administrator),
+                cd into your user directory and run this script again.
+                Please, press any key to exit..."
+    Read-Host
+    exit
 }
 
 Write-Host Please`, wait while we check if your computer is compatible with BeLL App... -ForegroundColor Magenta
@@ -22,35 +36,53 @@ Write-Host Please`, wait while we check if your computer is compatible with BeLL
 # Set ExecutionPolicy to Bypass
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine -Force
 
-#Check for Virtualization
-$a = (Get-CimInstance -ClassName win32_processor -Property Name, 
-                      SecondLevelAddressTranslationExtensions, VirtualizationFirmwareEnabled, VMMonitorModeExtensions)
-$a | Format-List Name, SecondLevelAddressTranslationExtensions, VirtualizationFirmwareEnabled, VMMonitorModeExtensions
-$slat = $a.SecondLevelAddressTranslationExtensions
-$virtual = $a.VirtualizationFirmwareEnabled
-$vmextensions = $a.VMMonitorModeExtensions
-if ($slat -eq $false) {
-    Write-Host BeLL-Apps is not compatible with your system. In order to install it, you need to upgrade your CPU first. -ForegroundColor Magenta
-    pause
-    exit
-} else {
-	if ($virtual -eq $false) {
-        Write-Host Virtualization is not enabled. In order to install BeLL-Apps, you must enable it. `
-        Helpful link: http://www.howtogeek.com/213795/how-to-enable-intel-vt-x-in-your-computers-bios-or-uefi-firmware/ -ForegroundColor Magenta
+#Check for Virtualization if not on Win7
+try {
+    $a = (Get-CimInstance -ClassName win32_processor -Property Name, SecondLevelAddressTranslationExtensions, 
+                                                               VirtualizationFirmwareEnabled, VMMonitorModeExtensions)
+    $a | Format-List Name, SecondLevelAddressTranslationExtensions, VirtualizationFirmwareEnabled, VMMonitorModeExtensions
+    $slat = $a.SecondLevelAddressTranslationExtensions
+    $virtual = $a.VirtualizationFirmwareEnabled
+    $vmextensions = $a.VMMonitorModeExtensions
+    if ($slat -eq $false) {
+        Write-Host BeLL-Apps is not compatible with your system. In order to install it, you need to upgrade your CPU first. -ForegroundColor Magenta
         pause
         exit
-	}
+    } else {
+        if ($virtual -eq $false) {
+            Write-Host Virtualization is not enabled. In order to install BeLL-Apps, you must enable it. `
+            Helpful link: http://www.howtogeek.com/213795/how-to-enable-intel-vt-x-in-your-computers-bios-or-uefi-firmware/ -ForegroundColor Magenta
+            pause
+            exit
+	    }
+    }
+} catch {
+    $virtualization = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" | Select -ExpandProperty EnableVirtualization
+    if (!$virtualization) {
+        Write-Host "Virtualization is not enabled. In order to install BeLL-Apps, you must enable it.
+                    Please, go to https://www.microsoft.com/en-us/download/details.aspx?id=592 and use the Microsoft tool 
+                    to find out if your machine supports virtualization.
+                    If it does, please go to http://www.howtogeek.com/213795/how-to-enable-intel-vt-x-in-your-computers-bios-or-uefi-firmware/
+                    for instructions on how to enable it. Then, run this script again.
+                    Please, press any key to exit..."
+        Read-Host
+        exit
+    }
 }
 
-# Check if Hyper-V is enabled
-$hyperv = Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online
-if ($hyperv.State -eq "Enabled") {
-    Write-Host Hyper-V is enabled on your computer. BeLL App cannot run with Hyper-V enabled. -ForegroundColor Magenta
-    Write-Host Disabling Hyper-V... -ForegroundColor Magenta
-    bcdedit /set hypervisorlaunchtype off
-    Write-Host Hyper-V has been disabled. Please`, reboot your computer`, then install BeLL App again. -ForegroundColor Magenta
-    pause
-    exit 
+# Check if Hyper-V is enabled (Win8 and above)
+try {
+    $hyperv = Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online
+    if ($hyperv.State -eq "Enabled") {
+        Write-Host Hyper-V is enabled on your computer. BeLL App cannot run with Hyper-V enabled. -ForegroundColor Magenta
+        Write-Host Disabling Hyper-V... -ForegroundColor Magenta
+        bcdedit /set hypervisorlaunchtype off
+        Write-Host Hyper-V has been disabled. Please`, reboot your computer`, then install BeLL App again. -ForegroundColor Magenta
+        pause
+        exit 
+    }
+} catch {
+    # do nothing: Win7 doesn't come with Hyper-V
 }
 
 Write-Host Your computer is compatible! -ForegroundColor Magenta
@@ -116,8 +148,8 @@ cd .\$repo
 Remove-Item $HOME\$repo\windows\*.bat
 
 # Open ports on network
-New-NetFirewallRule -DisplayName "Allow Outbound Port $port CouchDB/HTTP" -Direction Outbound –LocalPort $port -Protocol TCP -Action Allow
-New-NetFirewallRule -DisplayName "Allow Inbound Port $port CouchDB/HTTP" -Direction Inbound –LocalPort $port -Protocol TCP -Action Allow
+New-NetFirewallRule -DisplayName "Allow Outbound Port $port CouchDB/HTTP" -Direction Outbound -LocalPort $port -Protocol TCP -Action Allow
+New-NetFirewallRule -DisplayName "Allow Inbound Port $port CouchDB/HTTP" -Direction Inbound -LocalPort $port -Protocol TCP -Action Allow
 
 # Start Vagrant at Startup
 $trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
