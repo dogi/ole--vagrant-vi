@@ -41,7 +41,8 @@ choco uninstall bonjour -y
 # Remove OLE community VM and box, only if the user agrees
 if ($vm.ToUpper() -eq 'Y' -or $vm -eq "") {
     Write-Host Removing the virtual machine... -ForegroundColor Magenta
-    C:\HashiCorp\Vagrant\bin\vagrant.exe destroy community -f
+    cd $HOME\$repo
+    C:\HashiCorp\Vagrant\bin\vagrant.exe destroy -f
 }
 
 if ($box.ToUpper() -eq 'Y' -or $box -eq "") {
