@@ -5,14 +5,16 @@ ole--vagrant-vi gives you the ability to install your own community [BeLL](https
 ## Windows
 
 We wrote two different scripts to install the community BeLL and its dependencies on your computer.
-They are equivalent, so you can use either of the two. If you like, you can also try both and provide us with feedback on which one worked better for you. It is not required to try both, but we would be grateful if you decide to do so.   
+They are equivalent, so if you run Windows 8.1 or above, you can use either of the two. If you like, you can also try both and provide us with feedback on which one worked better for you. It is not required to try both, but we would be grateful if you decide to do so.   
 To run the script, just copy and paste one of the lines below in a [Command prompt](http://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/).
 
-```bat
-powershell -Command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/dogi/ole--vagrant-vi/master/windows/install.bat', 'install.bat')" && start install.bat && exit
-```
+#### Windows 8.1 and above
 ```bat
 @powershell -Command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/dogi/ole--vagrant-vi/master/windows/install.ps1', 'install.ps1')" && @powershell -NoProfile -ExecutionPolicy Bypass -Command ".\install.ps1"
+```
+#### Window 7 and above
+```bat
+powershell -Command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/dogi/ole--vagrant-vi/master/windows/install.bat', 'install.bat')" && start install.bat && exit
 ```
 To run your community BeLL at the end of the installation, please, find the MyBeLL icon on your desktop and double click on it. It will open a Firefox browser and take you directly to your community BeLL webpage.
 
