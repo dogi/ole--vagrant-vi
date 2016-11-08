@@ -1,4 +1,4 @@
-# TODO: Line 135 (pause not supported in Posh2)
+# TODO: Line 135 (pause command not supported in Posh2)
 # TODO: Lines 151-152 (New-NetFirewallRule not supported in Posh2)
 # TODO: Line 155 (New-JobTrigger not supported in Posh2)
 # TODO: Line 156 (Register-ScheduledJob not supported in Posh2)
@@ -22,11 +22,11 @@ try {
 	   Start-Process powershell -Verb runAs -ArgumentList $arguments
 	   Break
     }
-} catch {
-    Write-Host "Please, type Ctrl-C, then close this window, 
-                open a command prompt as administrator (Right-Click and choose Run as Administrator),
+} catch { # Win7
+    Write-Host "This script cannot automatically take admin privileges on your computer.
+                Please, open a command prompt as administrator (Right-Click and choose Run as Administrator),
                 cd into your user directory and run this script again.
-                Please, press any key to exit..."
+                Press any key to exit..."
     Read-Host
     exit
 }
@@ -36,7 +36,7 @@ Write-Host Please`, wait while we check if your computer is compatible with BeLL
 # Set ExecutionPolicy to Bypass
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine -Force
 
-#Check for Virtualization if not on Win7
+#Check for Virtualization
 try {
     $a = (Get-CimInstance -ClassName win32_processor -Property Name, SecondLevelAddressTranslationExtensions, 
                                                                VirtualizationFirmwareEnabled, VMMonitorModeExtensions)
@@ -56,7 +56,7 @@ try {
             exit
 	    }
     }
-} catch {
+} catch { # Win7: check if virtualization is enabled
     $virtualization = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" | Select -ExpandProperty EnableVirtualization
     if (!$virtualization) {
         Write-Host "Virtualization is not enabled. In order to install BeLL-Apps, you must enable it.
