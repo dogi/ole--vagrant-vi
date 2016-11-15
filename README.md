@@ -60,5 +60,5 @@ cd ole--vagrant-vi
 vagrant up
 ```
 
-You now have a working [communityBeLL](http://127.0.0.1:5984/apps/_design/bell/MyApp/index.html) on your OS.    
+You now have a working [communityBeLL](http://127.0.0.1:5985/apps/_design/bell/MyApp/index.html) on your OS.    
 It is advisable to use Firefox to access your community BeLL, so if you don't have it already on your system, you may want to download it.
