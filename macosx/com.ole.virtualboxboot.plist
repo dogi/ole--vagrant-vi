@@ -8,7 +8,7 @@
   <array>
     <string>/usr/local/bin/VBoxManage</string>
     <string>startvm</string>
-    <string>community</string>
+    <string>vi</string>
     <string>--type</string>
     <string>headless</string>
   </array>
