@@ -25,5 +25,6 @@ fi
 
 #remove com.ole.virtualboot.plist
 rm /Users/${USER}/Library/LaunchAgents/com.ole.virtualboxboot.plist
+rm -r /Applications/BellCommunity.app
 
 echo "Finish uninstall"
