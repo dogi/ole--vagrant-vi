@@ -5,18 +5,22 @@ MAN_BREW=`man brew`
 if [ "$MAN_BREW" = "" ]; then
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
+
 #if not install git, vagrant, virtualbox
 CHECK_GIT=`brew list | grep git`
-if[ "$CHECK_GIT" == "" ]
+if [ "$CHECK_GIT" = "" ]; then
 	brew install git
+fi
 
 CHECK_VARGANT=`brew cask list | grep vagrant`
-if[ "$CHECK_VARGANT" == "" ]	
+if [ "$CHECK_VARGANT" = "" ]; then	
 	brew cask install vagrant
+fi
 
 CHECK_VIRTUALBOX=`brew cask list | grep virtualbox`
-if[ "$CHECK_VIRTUALBOX" == "" ]
+if [ "$CHECK_VIRTUALBOX" = "" ]; then
 	brew cask install virtualbox
+fi; then
 
 #install bell app
 cd ~
@@ -33,4 +37,3 @@ defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</
 
 # Reset Dock
 killall Dock
-
