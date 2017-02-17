@@ -92,11 +92,11 @@ Vagrant.configure(2) do |config|
     cd /vagrant
     mkdir -p ole
     cd ole
-    wget https://github.com/open-learning-exchange/BeLL-Apps/archive/0.12.52.zip
-    unzip 0.12.52.zip
+    wget https://github.com/open-learning-exchange/BeLL-Apps/archive/0.12.80.zip
+    unzip 0.12.80.zip
     #ln -s BeLL-Apps-* BeLL-Apps ## won't work in windows
     #cd BeLL-Apps
-    cd BeLL-Apps-0.12.52
+    cd BeLL-Apps-0.12.80
     #for vi.ole.org:5999 only
     sed -i 's#earthbell.ole.org:5989#old.vi.ole.org:5985#' init_docs/ConfigurationsDoc-Community.txt
     chmod +x node_modules/.bin/couchapp
