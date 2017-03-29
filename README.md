@@ -6,7 +6,7 @@ ole--vagrant-vi gives you the ability to install your own community [BeLL](https
 
 We wrote two different scripts to install the community BeLL and its dependencies on your computer.
 They are equivalent, so if you run Windows 8.1 or above, you can use either of the two. If you like, you can also try both and provide us with feedback on which one worked better for you. It is not required to try both, but we would be grateful if you decide to do so.   
-To run the script, just copy and paste one of the lines below in a [Command prompt](http://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/).
+To run the script, just copy and paste one of the lines below in a [Command prompt](http://www.howtogeek.com/235101/10-ways-to-open-the-command-prompt-in-windows-10/) opened as administrator.
 
 #### Windows 8.1 and above
 ```bat
