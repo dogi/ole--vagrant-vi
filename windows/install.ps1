@@ -120,8 +120,9 @@ New-NetFirewallRule -DisplayName "Allow Outbound Port $port CouchDB/HTTP" -Direc
 New-NetFirewallRule -DisplayName "Allow Inbound Port $port CouchDB/HTTP" -Direction Inbound –LocalPort $port -Protocol TCP -Action Allow
 
 # Start Vagrant at Startup
-$trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
-Register-ScheduledJob -Trigger $trigger -FilePath $HOME\$repo\windows\vagrantup.ps1 -Name VagrantUp
+$Stt = New-ScheduledTaskTrigger -AtLogon
+$Sta = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Minimized -ExecutionPolicy Bypass  $HOME\$repo\windows\vagrantup.ps1"
+Register-ScheduledTask OLEVagrantUp -Action $Sta -Trigger $Stt
 
 # Create a desktop icon
 $WScriptShell = New-Object -ComObject WScript.Shell
