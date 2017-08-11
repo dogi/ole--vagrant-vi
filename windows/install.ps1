@@ -64,7 +64,8 @@ Write-Host "NOTE: Please, pay attention only to the messages written in this col
 RefreshEnv
 
 # Install the other required programs
-choco install bonjour, git, virtualbox, vagrant, firefox -y -allowEmptyChecksums
+choco install bonjour, git, virtualbox, firefox -y -allowEmptyChecksums
+choco install vagrant --verision=1.9.2 -y -allowEmptyChecksums
 # Add programs to the Path
 RefreshEnv
 
