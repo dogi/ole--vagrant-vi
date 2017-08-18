@@ -65,7 +65,7 @@ RefreshEnv
 
 # Install the other required programs
 choco install bonjour, git, virtualbox, firefox -y -allowEmptyChecksums
-choco install vagrant --verision=1.9.2 -y -allowEmptyChecksums
+choco install vagrant --version=1.9.2 -y -allowEmptyChecksums
 # Add programs to the Path
 RefreshEnv
 
