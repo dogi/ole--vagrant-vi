@@ -37,11 +37,9 @@ These programs will be automatically installed on your computer:
 
 # MacOS(X)
 
-Open your `Terminal`. We assume that [brew](http://brew.sh/) is already installed.
+Open your `Terminal`.
 ```bash
-    brew install git 
-    brew cask install vagrant
-    brew cask install virtualbox
+    curl -fsSL https://raw.githubusercontent.com/dogi/ole--vagrant-vi/master/macosx/install.sh | bash
 ```
 
 # Ubuntu
@@ -52,7 +50,7 @@ Open your `Terminal`. We assume that [brew](http://brew.sh/) is already installe
     sudo apt-get install vagrant
 ```
 
-# MacOS(X) and Ubuntu ONLY    
+# Ubuntu ONLY    
 ## Install a communityBeLL on your OS
 
 In your `Terminal` or `Command Prompt`, type:
